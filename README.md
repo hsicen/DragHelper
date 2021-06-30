@@ -1,0 +1,2 @@
+# DragHelper
+使用ViewDragHelper实现页面拖拽关闭效果
