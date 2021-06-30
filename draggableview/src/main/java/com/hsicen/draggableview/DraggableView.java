@@ -1,12 +1,12 @@
-package com.xiaosong.draggableview;
+package com.hsicen.draggableview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.ViewDragHelper;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
+import androidx.customview.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,8 +15,8 @@ import android.view.animation.AlphaAnimation;
 import android.widget.LinearLayout;
 
 import com.example.xiaosong.draggableview.R;
-import com.xiaosong.draggableview.interfaces.DraggableListener;
-import com.xiaosong.draggableview.interfaces.DraggableViewCallback;
+import com.hsicen.draggableview.interfaces.DraggableListener;
+import com.hsicen.draggableview.interfaces.DraggableViewCallback;
 
 
 /**

@@ -7,14 +7,14 @@
     android:background="@color/colorTransparent">
 
     <!--竖直拖拽-->
-    <com.xiaosong.draggableview.VerticalDraggableView
+    <com.hsicen.draggableview.VerticalDraggableView
         android:id="@+id/drag_view_vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/bg_gauss_blur"
         app:drag_view_id="@+id/scroll_view">
 
-        <com.xiaosong.draggableview.DraggableScrollView
+        <com.hsicen.draggableview.DraggableScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,7 +27,7 @@
                 android:orientation="vertical">
 
                 <!--水平拖拽-->
-                <com.xiaosong.draggableview.HorizontalDraggableView
+                <com.hsicen.draggableview.HorizontalDraggableView
                     android:id="@+id/drag_view_hor"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -91,15 +91,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
 
-                </com.xiaosong.draggableview.HorizontalDraggableView>
+                </com.hsicen.draggableview.HorizontalDraggableView>
 
 
             </RelativeLayout>
 
 
-        </com.xiaosong.draggableview.DraggableScrollView>
+        </com.hsicen.draggableview.DraggableScrollView>
 
 
-    </com.xiaosong.draggableview.VerticalDraggableView>
+    </com.hsicen.draggableview.VerticalDraggableView>
 
 </RelativeLayout>

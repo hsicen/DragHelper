@@ -1,119 +1,78 @@
-package com.xiaosong.draggableview.demo;
+package com.hsicen.draggableview.demo
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import com.xiaosong.draggableview.DraggableScrollView;
-import com.xiaosong.draggableview.DraggableView;
-import com.xiaosong.draggableview.interfaces.DraggableListener;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
+import android.os.Bundle
+import android.os.Handler
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.hsicen.extension.extensions.viewBinding
+import com.hsicen.draggableview.DraggableScrollView
+import com.hsicen.draggableview.demo.databinding.ActivityDraggableBinding
+import com.hsicen.draggableview.interfaces.DraggableListener
 
 /**
- * 利用ViewDragHelper实现（下拉拖拽关闭） 以及 （水平拖拽切换） 的功能。
+ * 作者：hsicen  6/30/21 11:26
+ * 邮箱：codinghuang@163.com
+ * 功能：
+ * 描述：利用ViewDragHelper实现（下拉拖拽关闭） 以及 （水平拖拽切换） 的功能
  */
-public class DraggableActivity extends AppCompatActivity implements DraggableListener, DraggableScrollView.ScrollListener {
+class DraggableActivity : AppCompatActivity(), DraggableListener, DraggableScrollView.ScrollListener {
+    private val binding by viewBinding(ActivityDraggableBinding::inflate)
 
-    private static final String TAG = "DraggableActivity";
-    @BindView(R.id.fl_video)
-    RelativeLayout flVideo;
-    @BindView(R.id.scroll_view)
-    DraggableScrollView scrollView;
-    @BindView(R.id.drag_view)
-    DraggableView dragView;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_draggable);
-        ButterKnife.bind(this);
-        initView();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_draggable)
+        initView()
     }
 
-    private void initView() {
-        dragView.setDraggableListener(this);
-        scrollView.setOnScrollListener(this);
+    private fun initView() {
+        binding.dragView.setDraggableListener(this)
+        binding.scrollView.setOnScrollListener(this)
     }
 
-
-    @Override
-    public void onClosedToBottom() {
-        Toast.makeText(this, "关闭页面", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                finish();
-//                overridePendingTransition(R.anim.slide_in_from_bottom, R.anim.bottom_transparent_exit);
-            }
-        }, 500);
-
+    override fun onClosedToBottom() {
+        Toast.makeText(this, "关闭页面", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed({ finish() }, 500)
     }
 
-    @Override
-    public void onClosedToLeft() {
-        Toast.makeText(DraggableActivity.this, "向左切换，加载下一个视频...", Toast.LENGTH_SHORT).show();
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                dragView.show();
-                Toast.makeText(DraggableActivity.this, "视频数据加载完成", Toast.LENGTH_SHORT).show();
-            }
-        }, 500);
+    override fun onClosedToLeft() {
+        Toast.makeText(this@DraggableActivity, "向左切换，加载下一个视频...", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed({
+            binding.dragView.show()
+            Toast.makeText(this@DraggableActivity, "视频数据加载完成", Toast.LENGTH_SHORT).show()
+        }, 500)
     }
 
-    @Override
-    public void onClosedToRight() {
-        Toast.makeText(DraggableActivity.this, "向右切换，加载上一个视频...", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                dragView.show();
-                Toast.makeText(DraggableActivity.this, "视频数据加载完成", Toast.LENGTH_SHORT).show();
-            }
-        }, 500);
+    override fun onClosedToRight() {
+        Toast.makeText(this@DraggableActivity, "向右切换，加载上一个视频...", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed({
+            binding.dragView.show()
+            Toast.makeText(this@DraggableActivity, "视频数据加载完成", Toast.LENGTH_SHORT).show()
+        }, 500)
     }
 
-    @Override
-    public void onBackgroundChanged(int top) {
-        int newAlpha = 255 - (int) (255 * ((float) top / (float) dragView.getRootView().getHeight()));
-
+    override fun onBackgroundChanged(top: Int) {
+        val newAlpha = 255 - (255 * (top.toFloat() / binding.dragView.rootView.height.toFloat())).toInt()
         if (newAlpha == 255) {
-            dragView.setBackgroundResource(R.mipmap.bg_gauss_blur);
+            binding.dragView.setBackgroundResource(R.mipmap.bg_gauss_blur)
         } else {
-            dragView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorBackground));
+            binding.dragView.setBackgroundColor(ContextCompat.getColor(this, R.color.colorBackground))
         }
-
-        dragView.getBackground().setAlpha(newAlpha);
+        binding.dragView.background.alpha = newAlpha
         if (newAlpha < 216) { //达到子控件缩放最小值，原大小的0.85倍
-            scrollView.setScaleX(0.85f);
-            scrollView.setScaleY(0.85f);
-        } else {// newAlpha >= 204 平滑缩放
-            scrollView.setScaleX(1 - (255.0f - (float) newAlpha) / 255);
-            scrollView.setScaleY(1 - (255.0f - (float) newAlpha) / 255);
+            //binding.scrollView.scaleX = 0.85f
+            binding.scrollView.scaleY = 0.85f
+        } else { // newAlpha >= 204 平滑缩放
+            //binding.scrollView.scaleX = 1 - (255.0f - newAlpha.toFloat()) / 255
+            binding.scrollView.scaleY = 1 - (255.0f - newAlpha.toFloat()) / 255
         }
     }
 
-    @Override
-    public void isOnTop(boolean isTop) {
-        dragView.setScrollToTop(isTop);
+    override fun isOnTop(isTop: Boolean) {
+        binding.dragView.setScrollToTop(isTop)
     }
 
-    @Override
-    public void onScrollChanged(int tY) {
+    override fun onScrollChanged(tY: Int) {}
 
-    }
-
-    /**
-     * 是否禁止下拉
-     *
-     * @return
-     */
-    @Override
-    public boolean isForbidden() {
-        return false;
-    }
+    override fun isForbidden(): Boolean = false
 }

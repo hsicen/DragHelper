@@ -1,37 +1,25 @@
-package com.xiaosong.draggableview.demo;
+package com.hsicen.draggableview.demo
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.hsicen.extension.extensions.clickThrottle
+import com.hsicen.extension.extensions.startActivity
+import com.hsicen.extension.extensions.viewBinding
+import com.hsicen.draggableview.demo.databinding.ActivityMainBinding
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+class MainActivity : AppCompatActivity() {
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-public class MainActivity extends AppCompatActivity {
+        binding.btnStartDraggable.clickThrottle {
+            startActivity<DraggableActivity>()
+        }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        initView();
-    }
-
-    private void initView() {
-
-    }
-
-    @OnClick({R.id.btn_start_draggable, R.id.btn_start_player})
-    public void onClick(View view) {
-        if (view.getId() ==R.id.btn_start_draggable){
-            startActivity(new Intent(MainActivity.this, DraggableActivity.class));
-        }else if (view.getId() ==R.id.btn_start_player){
-            startActivity(new Intent(MainActivity.this, VideoPlayerActivity.class));
+        binding.btnStartPlayer.clickThrottle {
+            startActivity<VideoPlayerActivity>()
         }
     }
-
 }

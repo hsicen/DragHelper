@@ -1,4 +1,4 @@
-package com.xiaosong.draggableview;
+package com.hsicen.draggableview;
 
 import android.content.Context;
 import android.util.AttributeSet;

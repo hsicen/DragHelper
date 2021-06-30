@@ -1,12 +1,12 @@
-package com.xiaosong.draggableview.interfaces;
+package com.hsicen.draggableview.interfaces;
 
 import android.app.Activity;
-import android.support.v4.widget.ViewDragHelper;
+import androidx.customview.widget.ViewDragHelper;
 import android.util.Log;
 import android.view.View;
 
-import com.xiaosong.draggableview.DraggableView;
-import com.xiaosong.draggableview.utils.DisplayMetricsUtils;
+import com.hsicen.draggableview.DraggableView;
+import com.hsicen.draggableview.utils.DisplayMetricsUtils;
 
 
 /**

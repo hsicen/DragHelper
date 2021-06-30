@@ -1,9 +1,8 @@
-package com.xiaosong.draggableview;
+package com.hsicen.draggableview;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -12,7 +11,7 @@ import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 import android.widget.Scroller;
 
-import com.xiaosong.draggableview.interfaces.DraggableListener;
+import com.hsicen.draggableview.interfaces.DraggableListener;
 
 
 /**
